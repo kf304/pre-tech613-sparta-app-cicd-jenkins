@@ -406,3 +406,152 @@ The `dev` branch provides a development area while `main` represents the success
 ### Reproducibility
 
 The same Jenkins process can be run consistently rather than relying on a developer remembering every step manually.
+
+Evidence
+
+The following evidence demonstrates that the CI/CD workflow has been successfully configured and executed.
+
+Job 1 — Successful Build and Test
+
+Job 1 successfully completed the build and test process.
+
+Jenkins Job:
+
+kacper-spapp-job1-ci-test
+
+Job 1 Console Output
+
+Started by user Trainee
+Running as SYSTEM
+Building remotely on EC2 (sparta-aws) - jenkins-node-2204-java17v5 (i-01869545601d0a1d0) in workspace /var/jenkins/workspace/kacper-spapp-job1-ci-test
+The recommended git tool is: NONE
+using credential kacper_github_key
+Cloning the remote Git repository
+Cloning repository git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+ > git init /var/jenkins/workspace/kacper-spapp-job1-ci-test # timeout=10
+Fetching upstream changes from git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_SSH to set credentials to read/write to repo
+ > git fetch --tags --force --progress -- git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/dev^{commit} # timeout=10
+Checking out Revision cc7f439ba9929d09592be4078738cb9b8a113c33 (refs/remotes/origin/dev)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f cc7f439ba9929d09592be4078738cb9b8a113c33 # timeout=10
+Commit message: "Documentated process on README.md"
+ > git rev-list --no-walk cc7f439ba9929d09592be4078738cb9b8a113c33 # timeout=10
+[kacper-spapp-job1-ci-test] $ /bin/sh -xe /tmp/jenkins677616420710938349.sh
++ cd app
++ npm install
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated glob@8.1.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated superagent@8.1.2: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
+npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+
+> sparta-test-app@1.0.1 postinstall
+> node seeds/seed.js
+
+Database connection closed
+
+added 371 packages, and audited 372 packages in 19s
+
+59 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (5 moderate, 1 high)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
++ npm test
+
+> sparta-test-app@1.0.1 test
+> npx mocha --exit
+
+Your app is ready and listening on port 3000
+
+
+  Homepage
+    ✔ should display the homepage at / GET (46ms)
+    ✔ should contain the word Sparta at / GET
+
+  Fibonacci
+    ✔ should display the correct fibonacci value at /fibonacci/10 GET
+
+
+  3 passing (80ms)
+
+Triggering a new build of kacper-spapp-job2-ci-merge
+Finished: SUCCESS
+
+Job 2 — Successful Merge
+
+Job 2 was automatically triggered following the successful completion of Job 1.
+
+Jenkins Job:
+
+kacper-spapp-job2-ci-merge
+
+Job 2 Console Output
+
+Started by user Trainee
+Started by upstream project "kacper-spapp-job1-ci-test" build number 4
+originally caused by:
+ Started by user Trainee
+Running as SYSTEM
+Building remotely on EC2 (sparta-aws) - jenkins-node-2204-java17v5 (i-01869545601d0a1d0) in workspace /var/jenkins/workspace/kacper-spapp-job2-ci-merge
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Exec ssh-agent (binary ssh-agent on a remote machine)
+$ ssh-agent
+SSH_AUTH_SOCK=/tmp/ssh-XXXXXX03djyX/agent.3479
+SSH_AGENT_PID=3481
+[ssh-agent] Started.
+Running ssh-add (command line suppressed)
+Identity added: /var/jenkins/workspace/kacper-spapp-job2-ci-merge@tmp/private_key_14422745876027648863.key (jenkins@spapp-scm-ci)
+[ssh-agent] Using credentials kacper-jenkins (to read and write to github)
+The recommended git tool is: NONE
+using credential kacper-jenkins
+Cloning the remote Git repository
+Cloning repository git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+ > git init /var/jenkins/workspace/kacper-spapp-job2-ci-merge # timeout=10
+Fetching upstream changes from git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_SSH to set credentials to read and write to github
+ > git fetch --tags --force --progress -- git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision cc7f439ba9929d09592be4078738cb9b8a113c33 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f cc7f439ba9929d09592be4078738cb9b8a113c33 # timeout=10
+Commit message: "Documentated process on README.md"
+ > git rev-list --no-walk 26835cbe694e80b90c25edbd60874cfaee2cb9fc # timeout=10
+[kacper-spapp-job2-ci-merge] $ /bin/sh -xe /tmp/jenkins9540561922437044671.sh
++ git checkout main
+Switched to a new branch 'main'
+Branch 'main' set up to track remote branch 'main' from 'origin'.
++ git pull origin main
+From github.com:kf304/pre-tech613-sparta-app-cicd-jenkins
+ * branch            main       -> FETCH_HEAD
+Already up to date.
++ git merge origin/dev --no-edit
+Already up to date.
++ git push origin main
+Everything up-to-date
+$ ssh-agent -k
+unset SSH_AUTH_SOCK;
+unset SSH_AGENT_PID;
+echo Agent pid 3481 killed;
+[ssh-agent] Stopped.
+Finished: SUCCESS
