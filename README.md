@@ -792,3 +792,12 @@ echo Agent pid 3481 killed;
 [ssh-agent] Stopped.
 Finished: SUCCESS
 ```
+---
+
+GitHub — Successful Merge on main
+
+The final result of the CI/CD workflow can be verified on GitHub.
+
+The main branch shows the changes that were successfully promoted from dev by Jenkins Job 2.
+
+<img width="912" height="320" alt="image" src="https://github.com/user-attachments/assets/8d9a5c49-2e17-435b-b3c0-11934a0f5c5c" />
