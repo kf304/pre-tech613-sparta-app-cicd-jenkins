@@ -222,6 +222,242 @@ The complete process is therefore:
              GitHub
              main
 ```
+---
+# Jenkins Job Setup
+
+## Job 1 — CI / Build & Test
+
+**Job name:**
+
+```text
+kacper-spapp-job1-ci-test
+```
+
+### 1. Create the Jenkins job
+
+Create a new Jenkins **Freestyle project** named:
+
+```text
+kacper-spapp-job1-ci-test
+```
+
+### 2. Configure Source Code Management
+
+Under **Source Code Management**, select **Git**.
+
+Repository URL:
+
+```text
+git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+```
+
+Set the branch to:
+
+```text
+*/dev
+```
+
+Select the Jenkins SSH credential:
+
+```text
+kacper_github_key
+```
+
+This allows Jenkins to securely clone the repository and access the `dev` branch.
+
+### 3. Configure the build trigger
+
+Under **Build Triggers**, enable:
+
+```text
+GitHub hook trigger for GITScm polling
+```
+
+This allows the GitHub webhook to trigger Job 1 when a push is made.
+
+### 4. Configure the build step
+
+Under **Build Steps**, add **Execute shell**.
+
+The build script is:
+
+```bash
+cd app
+npm install
+npm test
+```
+
+This installs the application's dependencies and runs the automated tests.
+
+If the tests pass, Jenkins marks Job 1 as successful.
+
+---
+
+## Job 2 — Merge `dev` into `main`
+
+**Job name:**
+
+```text
+kacper-spapp-job2-ci-merge
+```
+
+### 1. Create the Jenkins job
+
+Create a second Jenkins **Freestyle project** named:
+
+```text
+kacper-spapp-job2-ci-merge
+```
+
+### 2. Configure Source Code Management
+
+Under **Source Code Management**, select **Git**.
+
+Repository URL:
+
+```text
+git@github.com:kf304/pre-tech613-sparta-app-cicd-jenkins.git
+```
+
+Select:
+
+```text
+kacper-jenkins
+```
+
+as the Git credential.
+
+The job is configured to work with the repository branches and merge the latest `dev` changes into `main`.
+
+### 3. Configure the upstream trigger
+
+Under **Build Triggers**, configure Job 2 to build after:
+
+```text
+kacper-spapp-job1-ci-test
+```
+
+Set the trigger so that Job 2 only runs when Job 1 is successful.
+
+This creates the dependency:
+
+```text
+Job 1
+  │
+  │ SUCCESS
+  ▼
+Job 2
+```
+
+If Job 1 fails, Job 2 is not triggered.
+
+### 4. Configure SSH Agent
+
+Enable the Jenkins **SSH Agent** build environment and select:
+
+```text
+kacper-jenkins
+```
+
+This makes the SSH key available to Git commands executed by the shell.
+
+This is required because Job 2 needs to authenticate with GitHub when running:
+
+```bash
+git pull origin main
+git push origin main
+```
+
+The private SSH key is stored in Jenkins credentials rather than being included in the repository or shell script.
+
+### 5. Configure the merge build step
+
+Under **Build Steps**, add **Execute shell**:
+
+```bash
+git checkout main
+git pull origin main
+git merge origin/dev --no-edit
+git push origin main
+```
+
+The commands:
+
+1. Switch to `main`.
+2. Update `main` from GitHub.
+3. Merge the latest `dev` branch into `main`.
+4. Push the updated `main` branch back to GitHub.
+---
+
+# GitHub Webhook Setup
+
+A GitHub webhook is used to automatically notify Jenkins when changes are pushed to the repository.
+
+## Jenkins configuration
+
+In Job 1:
+
+**Configure → Build Triggers**
+
+Enable:
+
+```text
+GitHub hook trigger for GITScm polling
+```
+
+This allows Jenkins to respond to GitHub webhook events.
+
+## GitHub configuration
+
+In the GitHub repository, navigate to:
+
+```text
+Settings
+→ Webhooks
+→ Add webhook
+```
+
+Configure the webhook with the Jenkins GitHub webhook endpoint:
+
+```text
+<YOUR-JENKINS-URL>/github-webhook/
+```
+
+Set:
+
+```text
+Content type: application/json
+```
+
+Select:
+
+```text
+Just the push event
+```
+
+Ensure the webhook is:
+
+```text
+Active
+```
+
+The resulting workflow is:
+
+```text
+Developer pushes to dev
+        │
+        ▼
+      GitHub
+        │
+        │ Webhook
+        ▼
+     Jenkins
+        │
+        ▼
+     Job 1
+```
+
+This removes the need to manually start Job 1 after every change to `dev`.
 
 ---
 
