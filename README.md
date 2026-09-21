@@ -420,7 +420,7 @@ Jenkins Job:
 kacper-spapp-job1-ci-test
 
 Job 1 Console Output
-
+```
 Started by user Trainee
 Running as SYSTEM
 Building remotely on EC2 (sparta-aws) - jenkins-node-2204-java17v5 (i-01869545601d0a1d0) in workspace /var/jenkins/workspace/kacper-spapp-job1-ci-test
@@ -492,7 +492,7 @@ Your app is ready and listening on port 3000
 
 Triggering a new build of kacper-spapp-job2-ci-merge
 Finished: SUCCESS
-
+```
 Job 2 — Successful Merge
 
 Job 2 was automatically triggered following the successful completion of Job 1.
@@ -502,7 +502,7 @@ Jenkins Job:
 kacper-spapp-job2-ci-merge
 
 Job 2 Console Output
-
+```
 Started by user Trainee
 Started by upstream project "kacper-spapp-job1-ci-test" build number 4
 originally caused by:
@@ -555,3 +555,4 @@ unset SSH_AGENT_PID;
 echo Agent pid 3481 killed;
 [ssh-agent] Stopped.
 Finished: SUCCESS
+```
